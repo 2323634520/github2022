@@ -21,6 +21,7 @@ public class Base64Util {
         char currentByte = 0;
 
         int i;
+        int j = 0;
         for (i = 0; i < from.length; ++i) {
             for (num %= 8; num < 8; num += 6) {
                 switch (num) {
