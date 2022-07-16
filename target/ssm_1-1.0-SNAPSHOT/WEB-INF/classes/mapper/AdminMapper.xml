@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.AdminMapper">
+
+    <select id="adminLogin" parameterType="com.xm.pojo.Admin" resultType="com.xm.pojo.Admin">
+        select * from tb_admin where username = #{username} and password = #{password}
+    </select>
+
+
+</mapper>

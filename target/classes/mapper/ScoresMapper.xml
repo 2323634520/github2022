@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.ScoresMapper">
+    <select id="findScoresById" parameterType="java.lang.Integer" resultType="com.xm.pojo.Scores">
+        select * from tb_scores where id = #{id}
+    </select>
+
+    <select id="findScoresByXid" parameterType="java.lang.Integer" resultType="com.xm.pojo.Scores">
+        SELECT * FROM tb_scores WHERE rid = #{rid} and eid = #{eid};
+    </select>
+
+    <select id="showAllScores" resultType="com.xm.pojo.Scores">
+        SELECT *,username,realname,classinfo FROM tb_scores,tb_student where 1=1 and tb_student.id=tb_scores.sid;
+    </select>
+
+    <insert id="insertSores" parameterType="com.xm.pojo.Scores">
+        insert into tb_scores(sid, eid, rid, score) values (#{sid},#{eid},#{rid},#{score});
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateScores" parameterType="com.xm.pojo.Scores" >
+        update tb_scores set score = #{score} where id = #{id}
+    </update>
+
+    <delete id="deleteScores" parameterType="java.lang.Integer" >
+        delete from tb_scores where id = #{id};
+    </delete>
+
+    <select id="selectByEid" parameterType="com.xm.pojo.Scores" resultType="com.xm.pojo.Scores">
+        select * from tb_scores where eid = #{eid}
+    </select>
+
+    <select id="findAllStuCount" parameterType="com.xm.util.Page" resultType="java.lang.Integer">
+        select count(1) from tb_scores where 1=1
+        <if test="realname != null and realname != ''">
+            and realname like concat('%',#{realname},'%')
+        </if>
+    </select>
+
+    <select id="findStudentByPage" parameterType="com.xm.util.Page" resultType="com.xm.pojo.Scores">
+        select tstu.username,tstu.classinfo,tstu.realname,tsc.id,tsc.score,te.ename from tb_student as tstu,tb_scores as tsc,tb_exam as te where 1=1 and tstu.id = tsc.sid
+            and tsc.eid = te.eid
+        limit #{startPage},#{pageSize}
+    </select>
+
+</mapper>

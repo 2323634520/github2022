@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.StudentMapper">
+
+    <select id="findStudent" parameterType="com.xm.pojo.Student" resultType="com.xm.pojo.Student">
+        select * from tb_student where username = #{username} and password = #{password} and state = #{state}
+    </select>
+
+    <select id="findCountByRoom" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1) from tb_student where roomid = {#roomid}
+    </select>
+
+    <select id="selectAllStudentId" resultType="java.lang.Integer">
+        select id from tb_student;
+    </select>
+
+    <select id="findUserByUserNo" parameterType="java.lang.String" resultType="com.xm.pojo.Student">
+        select * from tb_student where userno = #{userno}
+    </select>
+
+    <select id="findAllStudent" resultType="com.xm.pojo.Student">
+        select * from tb_student;
+    </select>
+
+    <select id="findStudentByName" parameterType="com.xm.pojo.Student" resultType="com.xm.pojo.Student">
+        select * from tb_student where username = #{username}
+    </select>
+
+    <select id="findStudentById" parameterType="java.lang.Integer" resultType="com.xm.pojo.Student">
+        select * from tb_student where id = #{id}
+    </select>
+
+    <insert id="addStudent" parameterType="com.xm.pojo.Student">
+        insert into tb_student(username,password,realname,userno,classinfo,phonenum,roomid) values(#{username},#{password},#{realname},#{userno},#{classinfo},#{phonenum},#{roomid})
+    </insert>
+
+    <select id="findAllStuCount" parameterType="com.xm.util.Page" resultType="java.lang.Integer">
+        select count(1) from tb_student where 1=1
+            <if test="realname != null and realname != ''">
+                and realname like concat('%',#{realname},'%')
+            </if>
+    </select>
+
+    <select id="findStudentByPage" parameterType="com.xm.util.Page" resultType="com.xm.pojo.Student">
+		select *,category from tb_student,tb_room where 1=1 and tb_student.roomid = tb_room.roomid
+		    <if test="realname != null and realname != ''">
+                and realname like concat('%',#{realname},'%')
+            </if>
+		    limit #{startPage},#{pageSize}
+	</select>
+
+    <delete id="deleteStudent" parameterType="java.lang.Integer">
+        delete from tb_student where id = #{id}
+    </delete>
+
+    <!--通过主键修改数据-->
+    <update id="updateStudent" parameterType="com.xm.pojo.Student">
+        update tb_student
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="realname != null and realname != ''">
+                realname = #{realname},
+            </if>
+            <if test="classinfo != null and classinfo != ''">
+                classinfo = #{classinfo},
+            </if>
+            <if test="phonenum != null and phonenum != ''">
+                phonenum = #{phonenum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="updateState" parameterType="com.xm.pojo.Student">
+        update tb_student set state ='1' where id = #{id}
+    </update>
+
+
+    <select id="selectPerson" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from tb_student where roomid = #{roomid};
+    </select>
+
+</mapper>

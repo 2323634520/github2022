@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.RecMapper">
+
+    <select id="findRecById" parameterType="java.lang.Integer" resultType="com.xm.pojo.Rec">
+        select * from tb_rec where id = #{id}
+    </select>
+
+    <insert id="insertRec" parameterType="com.xm.pojo.Rec">
+        insert into tb_rec(realname, sex, age, roomname, classinfo, phonenum, infor, state) values(#{realname},#{sex},#{age},#{roomname},#{classinfo},#{phonenum},#{infor},#{state})
+    </insert>
+
+    <select id="showAllRec" resultType="com.xm.pojo.Rec">
+        select * from tb_rec;
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="updateRec" parameterType="com.xm.pojo.Rec">
+        update tb_rec
+        <set>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRec" parameterType="java.lang.Integer" >
+        delete from tb_rec where id = #{id};
+    </delete>
+
+    <select id="findAllRecCount" parameterType="com.xm.util.Page" resultType="java.lang.Integer">
+        select count(1) from tb_rec;
+    </select>
+
+    <select id="findRecByPage" parameterType="com.xm.util.Page" resultType="com.xm.pojo.Rec">
+        select * from tb_rec where 1=1
+        limit #{startPage},#{pageSize}
+    </select>
+</mapper>

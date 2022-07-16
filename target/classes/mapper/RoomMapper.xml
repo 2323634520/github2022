@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.RoomMapper">
+
+    <select id="findRoomById" parameterType="java.lang.Integer" resultType="com.xm.pojo.Room">
+        select * from tb_room where roomid = #{roomid}
+    </select>
+
+    <select id="showAllRoom" resultType="com.xm.pojo.Room">
+        select * from tb_room;
+    </select>
+
+    <insert id="insertRoom" parameterType="com.xm.pojo.Room">
+        insert into tb_room(roomid,category,num,address,person,email) values (#{roomid},#{category},#{num},#{address},#{person},#{email});
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateRoom" parameterType="com.xm.pojo.Room">
+        update tb_room
+        <set>
+            <if test="category != null and category != ''">
+                category = #{category},
+            </if>
+            <if test="num != null and num != ''">
+                num = #{num},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+        </set>
+        where roomid = #{roomid}
+    </update>
+
+    <delete id="deleteRoom" parameterType="java.lang.Integer" >
+        delete from tb_room where roomid = #{roomid};
+    </delete>
+
+
+</mapper>

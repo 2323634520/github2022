@@ -1,0 +1,58 @@
+/**
+表格样式层次
+ */
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table caption{
+    font-size: 2em;
+    font-weight: bold;
+    margin: 1em 0;
+}
+th,td{
+    border: 1px solid #132e45;
+    text-align: center;
+    padding: 20px 0;
+}
+table tr{
+    color: #111111;
+}
+body #search{
+    width: auto;
+    height: auto;
+    border: 2px solid #dddddd;
+    background: #fdfdfa;
+    font-size: 16px;
+    text-align: center;
+    color: #666362;
+}
+
+body #query{
+    width: auto;
+    height: auto;
+    border: 2px solid #dddddd;
+    background: #a2faf6;
+    font-size: 16px;
+    text-align: center;
+    color: #666362;
+}
+
+body #addStu{
+    width: auto;
+    height: auto;
+    border: 2px solid #dddddd;
+    background: #ff97ef;
+    font-size: 16px;
+    text-align: center;
+    color: #666362;
+}
+body input{
+    width: auto;
+    height: auto;
+    border: 2px solid #33cabb;
+    background: #7dee4e;
+    font-size: 16px;
+    text-align: center;
+    color: #0e0e0e;
+}
