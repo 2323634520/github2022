@@ -22,6 +22,7 @@ public class Base64Util {
 
         int i;
         int j = 0;
+        int b2 = 0;
         for (i = 0; i < from.length; ++i) {
             for (num %= 8; num < 8; num += 6) {
                 switch (num) {
